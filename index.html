@@ -266,6 +266,13 @@
             ]
         };
 
+        // HTML escape function to prevent XSS
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // Countdown Timer Function
         function updateCountdown() {
             const now = new Date().getTime();
@@ -305,16 +312,16 @@
         function renderWizardingWorld() {
             const output = APP_DATA.WIZARDING_WORLD.map(land => `
                 <div class="wizarding-land">
-                    <h3>${land.name}</h3>
-                    <p><strong>Park:</strong> ${land.park}</p>
-                    <p><strong>Main Attraction:</strong> ${land.main_attraction}</p>
-                    <p><strong>Signature Food:</strong> ${land.signature_food}</p>
-                    <p><strong>Magical Moment:</strong> ${land.magical_moment}</p>
+                    <h3>${escapeHtml(land.name)}</h3>
+                    <p><strong>Park:</strong> ${escapeHtml(land.park)}</p>
+                    <p><strong>Main Attraction:</strong> ${escapeHtml(land.main_attraction)}</p>
+                    <p><strong>Signature Food:</strong> ${escapeHtml(land.signature_food)}</p>
+                    <p><strong>Magical Moment:</strong> ${escapeHtml(land.magical_moment)}</p>
                     ${land.rides.length > 0 ? `
                         <div class="ride-list">
                             <strong>Rides:</strong>
                             ${land.rides.map(ride => `
-                                <div class="ride-item">• ${ride.name} (Height Requirement: ${ride.height})</div>
+                                <div class="ride-item">• ${escapeHtml(ride.name)} (Height Requirement: ${escapeHtml(ride.height)})</div>
                             `).join('')}
                         </div>
                     ` : ''}
@@ -326,23 +333,23 @@
 
         // Render Itinerary
         function renderItinerary() {
-            // Sort itinerary by start date
-            const sortedItinerary = APP_DATA.ITINERARY.sort((a, b) => {
+            // Sort itinerary by start date (create a copy to avoid mutation)
+            const sortedItinerary = [...APP_DATA.ITINERARY].sort((a, b) => {
                 const dateA = new Date(a.start);
                 const dateB = new Date(b.start);
                 return dateA - dateB;
             });
 
             const output = sortedItinerary.map(item => `
-                <div class="itinerary-item ${item.type.toLowerCase()}">
-                    <h3>${item.name}</h3>
+                <div class="itinerary-item ${escapeHtml(item.type.toLowerCase())}">
+                    <h3>${escapeHtml(item.name)}</h3>
                     <div class="time">
-                        <strong>Starts:</strong> ${item.start}<br>
-                        <strong>Ends:</strong> ${item.end}
+                        <strong>Starts:</strong> ${escapeHtml(item.start)}<br>
+                        <strong>Ends:</strong> ${escapeHtml(item.end)}
                     </div>
-                    <div class="details">${item.details}</div>
-                    <div class="address">${item.address}</div>
-                    ${item.action ? `<div class="action">${item.action}</div>` : ''}
+                    <div class="details">${escapeHtml(item.details)}</div>
+                    <div class="address">${escapeHtml(item.address)}</div>
+                    ${item.action ? `<div class="action">${escapeHtml(item.action)}</div>` : ''}
                 </div>
             `).join('');
 
