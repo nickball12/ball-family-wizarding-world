@@ -337,6 +337,10 @@
             const sortedItinerary = [...APP_DATA.ITINERARY].sort((a, b) => {
                 const dateA = new Date(a.start);
                 const dateB = new Date(b.start);
+                // Handle invalid dates by placing them at the end
+                if (isNaN(dateA.getTime()) && isNaN(dateB.getTime())) return 0;
+                if (isNaN(dateA.getTime())) return 1;
+                if (isNaN(dateB.getTime())) return -1;
                 return dateA - dateB;
             });
 
