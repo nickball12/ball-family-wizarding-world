@@ -167,38 +167,93 @@
     </div>
 
     <script>
-        // Itinerary data
-        const itineraryData = [
-            {
-                start_time: '2025-11-21T09:00:00',
-                description: 'Early Park Admission - Wizarding World of Harry Potter',
-                magical_moment: 'Experience Hogwarts before the crowds!'
-            },
-            {
-                start_time: '2025-11-21T10:00:00',
-                description: 'Hagrid\'s Magical Creatures Motorbike Adventure',
-                magical_moment: 'Soar through the Forbidden Forest!'
-            },
-            {
-                start_time: '2025-11-21T12:00:00',
-                description: 'Lunch at Three Broomsticks',
-                magical_moment: 'Try the famous Butterbeer!'
-            },
-            {
-                start_time: '2025-11-21T14:00:00',
-                description: 'Harry Potter and the Escape from Gringotts',
-                magical_moment: 'Break into the wizarding bank!'
-            },
-            {
-                start_time: '2025-11-21T16:00:00',
-                description: 'Explore Diagon Alley',
-                magical_moment: 'Visit Ollivanders and find your wand!'
-            }
-        ];
+        // Application Data
+        const APP_DATA = {
+            // Target the very first event for the main countdown: Delta Flight Departure (SLC)
+            COUNTDOWN_TARGET: new Date('2025-12-01T17:57:00-07:00').getTime(),
+
+            WIZARDING_WORLD: [
+                {
+                    id: 'diagon_alley',
+                    name: 'Diagon Alley',
+                    park: 'Universal Studios Florida',
+                    main_attraction: 'Harry Potter and the Escape from Gringotts',
+                    signature_food: 'The Leaky Cauldron (Butterbeer)',
+                    magical_moment: 'Gringotts Dragon breathing fire.',
+                    rides: [{name: 'Gringotts', height: "42\""}, {name: 'Knight Bus', height: 'None'}],
+                },
+                {
+                    id: 'hogsmeade',
+                    name: 'Hogsmeade',
+                    park: 'Islands of Adventure',
+                    main_attraction: "Hagrid's Magical Creatures Motorbike Adventure™",
+                    signature_food: 'Three Broomsticks™ (The Great Feast, Pumpkin Juice)',
+                    magical_moment: 'Exploring the queue inside Hogwarts Castle.',
+                    rides: [{name: 'Hagrid\'s Motorbike', height: "52\""}, {name: 'Forbidden Journey', height: '48\"'}],
+                },
+                {
+                    id: 'hogwarts_express',
+                    name: 'Hogwarts Express',
+                    park: 'Park-to-Park Required',
+                    main_attraction: 'Scenic journey between the two lands',
+                    signature_food: 'N/A',
+                    magical_moment: 'Walking through the wall at Platform 9 ¾.',
+                    rides: [],
+                }
+            ],
+
+            ITINERARY: [
+                {
+                    type: 'Accommodation',
+                    name: 'Lake Buena Vista Resort Village & Spa',
+                    start: 'Dec 2, 4:00 PM EST',
+                    end: 'Dec 3, 11:00 AM EST',
+                    details: '2-Bedroom Suite. Check-in starts 4 PM.',
+                    address: '8113 Resort Village Dr, Orlando, FL 32821',
+                    action: null,
+                },
+                {
+                    type: 'Accommodation',
+                    name: 'Hard Rock Hotel ®',
+                    start: 'Dec 3, 4:00 PM EST',
+                    end: 'Dec 5, 11:00 AM EST',
+                    details: 'Standard 2 Queen Beds. Universal Early Access.',
+                    address: '5800 Universal Blvd, Orlando, FL 32819',
+                    action: null,
+                },
+                {
+                    type: 'Accommodation',
+                    name: 'Encore Resort and Water Park',
+                    start: 'Dec 5, 4:00 PM EST',
+                    end: 'Dec 8, 10:00 AM EST',
+                    details: '4-Bedroom Luxury House with Private Pool.',
+                    address: '7721 Gathering Dr, Kissimmee, FL 34747 (Example Address)',
+                    action: null,
+                },
+                {
+                    type: 'Travel',
+                    name: 'Delta Flight 2056',
+                    start: 'Dec 1, 5:57 PM MST (SLC)',
+                    end: 'Dec 2, 12:11 AM EST (MCO)',
+                    details: 'Confirmation: HZ8O6V. Arrives early Tuesday morning.',
+                    address: 'SLC International Airport',
+                    action: null,
+                },
+                {
+                    type: 'Travel',
+                    name: 'Turo Car Rental (Pickup)',
+                    start: 'Dec 2, 12:30 AM EST',
+                    end: 'Dec 8, 3:00 PM EST (Drop-off)',
+                    details: '2025 Honda Prologue. Pick up at MCO.',
+                    address: 'Orlando International Airport (MCO)',
+                    action: 'CRITICAL: Submit Turo Info by Nov 30, 10:30 PM EST!',
+                },
+            ]
+        };
 
         // Countdown functionality
         function updateCountdown() {
-            const targetDate = new Date('2025-11-21T00:00:00').getTime();
+            const targetDate = APP_DATA.COUNTDOWN_TARGET;
             const now = new Date().getTime();
             const difference = targetDate - now;
 
@@ -221,24 +276,23 @@
         function renderItinerary() {
             const output = document.getElementById('itinerary-output');
             
-            // Sort by start time
-            const sortedData = itineraryData.sort((a, b) => 
-                new Date(a.start_time) - new Date(b.start_time)
-            );
+            // Use the new ITINERARY data from APP_DATA
+            const itineraryItems = APP_DATA.ITINERARY;
 
-            output.innerHTML = sortedData.map(item => {
-                const startDate = new Date(item.start_time);
-                const timeString = startDate.toLocaleTimeString('en-US', { 
-                    hour: 'numeric', 
-                    minute: '2-digit',
-                    hour12: true 
-                });
+            output.innerHTML = itineraryItems.map(item => {
+                const actionHtml = item.action 
+                    ? `<p><strong>⚠️ Action Required:</strong> ${item.action}</p>` 
+                    : '';
 
                 return `
                     <div class="itinerary-item">
-                        <p><strong>🕐 Starts:</strong> ${timeString}</p>
-                        <p><strong>📍 Event:</strong> ${item.description}</p>
-                        <p><strong>✨ Magical Moment:</strong> ${item.magical_moment}</p>
+                        <p><strong>📌 Type:</strong> ${item.type}</p>
+                        <p><strong>📍 Name:</strong> ${item.name}</p>
+                        <p><strong>🕐 Start:</strong> ${item.start}</p>
+                        <p><strong>🕐 End:</strong> ${item.end}</p>
+                        <p><strong>📝 Details:</strong> ${item.details}</p>
+                        <p><strong>🏠 Address:</strong> ${item.address}</p>
+                        ${actionHtml}
                     </div>
                 `;
             }).join('');
