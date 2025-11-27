@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ball Family Wizarding World</title>
+    <title>Orlando Family Vacation 2025 - Ball Family</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -30,14 +30,28 @@
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 2.5em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .subtitle {
-            font-size: 1.5em;
+            font-size: 1.3em;
             opacity: 0.9;
+        }
+
+        .travelers {
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        .travelers span {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin: 0 5px;
+            display: inline-block;
+            margin-top: 5px;
         }
 
         .countdown {
@@ -45,88 +59,304 @@
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 30px;
-            margin: 40px 0;
+            margin: 30px 0;
             text-align: center;
         }
 
         .countdown h2 {
-            font-size: 2em;
+            font-size: 1.8em;
             margin-bottom: 20px;
         }
 
         .countdown-timer {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
         .time-unit {
             background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
-            min-width: 100px;
+            min-width: 80px;
         }
 
         .time-value {
-            font-size: 3em;
+            font-size: 2.5em;
             font-weight: bold;
             display: block;
         }
 
         .time-label {
-            font-size: 1em;
+            font-size: 0.9em;
             opacity: 0.8;
             text-transform: uppercase;
         }
 
-        .section {
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .nav-tab {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tab:hover, .nav-tab.active {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .day-section {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             margin: 20px 0;
+            display: none;
         }
 
-        .section h2 {
-            font-size: 2em;
+        .day-section.active {
+            display: block;
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .itinerary-item {
+        .day-header h2 {
+            font-size: 1.8em;
+        }
+
+        .day-summary {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 1em;
+        }
+
+        .calendar-grid {
+            display: grid;
+            gap: 2px;
             background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .time-slot {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            min-height: 40px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .time-slot:nth-child(even) {
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .time-label-slot {
+            padding: 10px;
+            font-weight: bold;
+            font-size: 0.85em;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slot-content {
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 10px 15px;
+            flex: 1;
+            min-width: 200px;
+            border-left: 4px solid #ffd700;
+            transition: transform 0.2s ease;
+        }
+
+        .event-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .event-card.flight { border-left-color: #00bcd4; }
+        .event-card.flight_landing { border-left-color: #4caf50; }
+        .event-card.car_rental { border-left-color: #ff9800; }
+        .event-card.hotel_checkin { border-left-color: #e91e63; }
+        .event-card.hotel_checkout { border-left-color: #9c27b0; }
+        .event-card.baggage_storage { border-left-color: #795548; }
+        .event-card.logistics { border-left-color: #607d8b; }
+        .event-card.park { border-left-color: #8bc34a; }
+        .event-card.leisure { border-left-color: #03a9f4; }
+
+        .event-icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+
+        .event-title {
+            font-weight: bold;
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .event-description {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .event-time {
+            font-size: 0.85em;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        .countdown-complete {
+            font-size: 2em;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9em;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+
+        .legend-color.flight { background: #00bcd4; }
+        .legend-color.flight_landing { background: #4caf50; }
+        .legend-color.car_rental { background: #ff9800; }
+        .legend-color.hotel_checkin { background: #e91e63; }
+        .legend-color.hotel_checkout { background: #9c27b0; }
+        .legend-color.baggage_storage { background: #795548; }
+        .legend-color.logistics { background: #607d8b; }
+        .legend-color.park { background: #8bc34a; }
+        .legend-color.leisure { background: #03a9f4; }
+
+        .all-days-view {
+            display: none;
+        }
+
+        .all-days-view.active {
+            display: block;
+        }
+
+        .day-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
             padding: 20px;
             margin: 15px 0;
-            border-radius: 10px;
-            border-left: 4px solid #ffd700;
         }
 
-        .itinerary-item strong {
+        .day-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .event-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .event-list-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .event-list-time {
+            font-weight: bold;
+            min-width: 60px;
             color: #ffd700;
         }
 
-        .itinerary-item p {
-            margin: 10px 0;
-            line-height: 1.6;
+        .event-list-content {
+            flex: 1;
+        }
+
+        .event-list-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .event-list-desc {
+            font-size: 0.9em;
+            opacity: 0.85;
         }
 
         @media (max-width: 768px) {
             h1 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
 
             .subtitle {
-                font-size: 1.2em;
-            }
-
-            .countdown h2 {
-                font-size: 1.5em;
+                font-size: 1em;
             }
 
             .time-value {
                 font-size: 2em;
+            }
+
+            .time-slot {
+                grid-template-columns: 60px 1fr;
+            }
+
+            .time-label-slot {
+                font-size: 0.75em;
+                padding: 5px;
+            }
+
+            .event-card {
+                min-width: 150px;
+                padding: 8px 12px;
+            }
+
+            .nav-tab {
+                padding: 10px 15px;
+                font-size: 0.85em;
             }
         }
     </style>
@@ -134,12 +364,18 @@
 <body>
     <div class="container">
         <header>
-            <h1>🪄 Ball Family Wizarding World 🪄</h1>
-            <p class="subtitle">Universal Studios Florida Adventure</p>
+            <h1>🌴 Orlando Family Vacation 2025 🌴</h1>
+            <p class="subtitle">December 1-8, 2025 | Universal Studios & More!</p>
+            <div class="travelers">
+                <span>👨 Nicholas</span>
+                <span>👩 Kelsie</span>
+                <span>👧 Amelia</span>
+                <span>👦 Calvin</span>
+            </div>
         </header>
 
         <div class="countdown">
-            <h2>Countdown to Magic!</h2>
+            <h2>✨ Countdown to Magic! ✨</h2>
             <div class="countdown-timer" id="countdown-output">
                 <div class="time-unit">
                     <span class="time-value" id="days">0</span>
@@ -160,100 +396,392 @@
             </div>
         </div>
 
-        <div class="section">
-            <h2>📅 Itinerary</h2>
-            <div id="itinerary-output"></div>
+        <div class="legend">
+            <div class="legend-item"><div class="legend-color flight"></div> Flight</div>
+            <div class="legend-item"><div class="legend-color flight_landing"></div> Landing</div>
+            <div class="legend-item"><div class="legend-color car_rental"></div> Car Rental</div>
+            <div class="legend-item"><div class="legend-color hotel_checkin"></div> Hotel Check-in</div>
+            <div class="legend-item"><div class="legend-color hotel_checkout"></div> Checkout</div>
+            <div class="legend-item"><div class="legend-color park"></div> Theme Park</div>
+            <div class="legend-item"><div class="legend-color leisure"></div> Leisure</div>
+            <div class="legend-item"><div class="legend-color logistics"></div> Logistics</div>
         </div>
+
+        <div class="nav-tabs" id="nav-tabs"></div>
+
+        <div id="calendar-container"></div>
     </div>
 
     <script>
-        // Application Data
-        const APP_DATA = {
-            // Target the very first event for the main countdown: Delta Flight Departure (SLC)
-            COUNTDOWN_TARGET: new Date('2025-12-01T17:57:00-07:00').getTime(),
-
-            WIZARDING_WORLD: [
+        // Trip Data
+        const TRIP_DATA = {
+            trip_name: "Orlando Family Vacation 2025",
+            travelers: ["Nicholas", "Kelsie", "Amelia", "Calvin"],
+            schedule: [
                 {
-                    id: 'diagon_alley',
-                    name: 'Diagon Alley',
-                    park: 'Universal Studios Florida',
-                    main_attraction: 'Harry Potter and the Escape from Gringotts',
-                    signature_food: 'The Leaky Cauldron (Butterbeer)',
-                    magical_moment: 'Gringotts Dragon breathing fire.',
-                    rides: [{name: 'Gringotts', height: "42\""}, {name: 'Knight Bus', height: 'None'}],
+                    date: "2025-12-01",
+                    day: "Monday",
+                    summary: "Travel Day to Orlando",
+                    events: [
+                        {
+                            time: "17:57",
+                            type: "flight",
+                            title: "Depart SLC",
+                            description: "Delta Flight 2056 to MCO."
+                        }
+                    ]
                 },
                 {
-                    id: 'hogsmeade',
-                    name: 'Hogsmeade',
-                    park: 'Islands of Adventure',
-                    main_attraction: "Hagrid's Magical Creatures Motorbike Adventure™",
-                    signature_food: 'Three Broomsticks™ (The Great Feast, Pumpkin Juice)',
-                    magical_moment: 'Exploring the queue inside Hogwarts Castle.',
-                    rides: [{name: 'Hagrid\'s Motorbike', height: "52\""}, {name: 'Forbidden Journey', height: '48\"'}],
+                    date: "2025-12-02",
+                    day: "Tuesday",
+                    summary: "Arrival & Rest",
+                    events: [
+                        {
+                            time: "00:11",
+                            type: "flight_landing",
+                            title: "Arrive MCO",
+                            description: "Land at Orlando International Airport."
+                        },
+                        {
+                            time: "01:00",
+                            type: "car_rental",
+                            title: "Turo Pickup",
+                            description: "Pick up Honda Prologue at MCO."
+                        },
+                        {
+                            time: "02:00",
+                            type: "hotel_checkin",
+                            title: "Check-in: Lake Buena Vista Resort",
+                            description: "Late night check-in. Address: 8113 Resort Village Drive, Orlando."
+                        }
+                    ]
                 },
                 {
-                    id: 'hogwarts_express',
-                    name: 'Hogwarts Express',
-                    park: 'Park-to-Park Required',
-                    main_attraction: 'Scenic journey between the two lands',
-                    signature_food: 'N/A',
-                    magical_moment: 'Walking through the wall at Platform 9 ¾.',
-                    rides: [],
+                    date: "2025-12-03",
+                    day: "Wednesday",
+                    summary: "Islands of Adventure & Hotel Switch",
+                    events: [
+                        {
+                            time: "07:30",
+                            type: "baggage_storage",
+                            title: "Load Baggage into Car",
+                            description: "Checkout of Lake Buena Vista. Store all luggage in the Turo trunk before heading to Hard Rock."
+                        },
+                        {
+                            time: "08:00",
+                            type: "logistics",
+                            title: "Hard Rock Arrival",
+                            description: "Park at Hard Rock Hotel. Pick up room keys at front desk (acts as your Express Pass). Leave bags in car or with Bell Services."
+                        },
+                        {
+                            time: "09:00",
+                            type: "park",
+                            title: "Islands of Adventure",
+                            description: "Park Open. Priority: VelociCoaster and Hagrid's Motorbike Adventure."
+                        },
+                        {
+                            time: "16:00",
+                            type: "hotel_checkin",
+                            title: "Room Ready: Hard Rock Hotel",
+                            description: "Official check-in time. You can head to room for a break or stay in park."
+                        }
+                    ]
+                },
+                {
+                    date: "2025-12-04",
+                    day: "Thursday",
+                    summary: "Universal Studios Florida",
+                    events: [
+                        {
+                            time: "08:00",
+                            type: "park",
+                            title: "Early Park Admission",
+                            description: "Use Hard Rock room key for early entry (typically 1 hour before open)."
+                        },
+                        {
+                            time: "09:00",
+                            type: "park",
+                            title: "Universal Studios Florida",
+                            description: "Regular Park Open. Highlights: Diagon Alley, Mummy, Rip Ride Rockit."
+                        }
+                    ]
+                },
+                {
+                    date: "2025-12-05",
+                    day: "Friday",
+                    summary: "Resort Switch to Encore",
+                    events: [
+                        {
+                            time: "11:00",
+                            type: "baggage_storage",
+                            title: "Checkout & Store Bags",
+                            description: "Checkout of Hard Rock Hotel. Load luggage into Turo trunk. You are between hotels until 4 PM."
+                        },
+                        {
+                            time: "12:00",
+                            type: "leisure",
+                            title: "CityWalk / Pool / Lunch",
+                            description: "Free time while waiting for Encore check-in."
+                        },
+                        {
+                            time: "16:00",
+                            type: "hotel_checkin",
+                            title: "Check-in: Encore Resort",
+                            description: "Address: 7635 Fairfax Drive, Kissimmee. 4-Bedroom Luxury House."
+                        }
+                    ]
+                },
+                {
+                    date: "2025-12-06",
+                    day: "Saturday",
+                    summary: "Encore Resort Leisure",
+                    events: [
+                        {
+                            time: "10:00",
+                            type: "leisure",
+                            title: "Resort Day",
+                            description: "Enjoy private pool and water park amenities."
+                        }
+                    ]
+                },
+                {
+                    date: "2025-12-07",
+                    day: "Sunday",
+                    summary: "Encore Resort Leisure",
+                    events: [
+                        {
+                            time: "10:00",
+                            type: "leisure",
+                            title: "Resort Day",
+                            description: "Relaxation or local exploration."
+                        }
+                    ]
+                },
+                {
+                    date: "2025-12-08",
+                    day: "Monday",
+                    summary: "Departure",
+                    events: [
+                        {
+                            time: "10:00",
+                            type: "hotel_checkout",
+                            title: "Checkout: Encore Resort",
+                            description: "Departure time."
+                        },
+                        {
+                            time: "15:00",
+                            type: "car_rental",
+                            title: "Turo Drop-off",
+                            description: "Return Honda Prologue at MCO."
+                        },
+                        {
+                            time: "17:00",
+                            type: "flight",
+                            title: "Depart MCO",
+                            description: "Delta Flight 2032 to SLC."
+                        },
+                        {
+                            time: "20:00",
+                            type: "flight_landing",
+                            title: "Arrive SLC",
+                            description: "Welcome Home."
+                        }
+                    ]
                 }
-            ],
-
-            ITINERARY: [
-                {
-                    type: 'Accommodation',
-                    name: 'Lake Buena Vista Resort Village & Spa',
-                    start: 'Dec 2, 4:00 PM EST',
-                    end: 'Dec 3, 11:00 AM EST',
-                    details: '2-Bedroom Suite. Check-in starts 4 PM.',
-                    address: '8113 Resort Village Dr, Orlando, FL 32821',
-                    action: null,
-                },
-                {
-                    type: 'Accommodation',
-                    name: 'Hard Rock Hotel ®',
-                    start: 'Dec 3, 4:00 PM EST',
-                    end: 'Dec 5, 11:00 AM EST',
-                    details: 'Standard 2 Queen Beds. Universal Early Access.',
-                    address: '5800 Universal Blvd, Orlando, FL 32819',
-                    action: null,
-                },
-                {
-                    type: 'Accommodation',
-                    name: 'Encore Resort and Water Park',
-                    start: 'Dec 5, 4:00 PM EST',
-                    end: 'Dec 8, 10:00 AM EST',
-                    details: '4-Bedroom Luxury House with Private Pool.',
-                    address: '7721 Gathering Dr, Kissimmee, FL 34747 (Example Address)',
-                    action: null,
-                },
-                {
-                    type: 'Travel',
-                    name: 'Delta Flight 2056',
-                    start: 'Dec 1, 5:57 PM MST (SLC)',
-                    end: 'Dec 2, 12:11 AM EST (MCO)',
-                    details: 'Confirmation: HZ8O6V. Arrives early Tuesday morning.',
-                    address: 'SLC International Airport',
-                    action: null,
-                },
-                {
-                    type: 'Travel',
-                    name: 'Turo Car Rental (Pickup)',
-                    start: 'Dec 2, 12:30 AM EST',
-                    end: 'Dec 8, 3:00 PM EST (Drop-off)',
-                    details: '2025 Honda Prologue. Pick up at MCO.',
-                    address: 'Orlando International Airport (MCO)',
-                    action: 'CRITICAL: Submit Turo Info by Nov 30, 10:30 PM EST!',
-                },
             ]
         };
 
+        // Event type icons
+        const EVENT_ICONS = {
+            flight: "✈️",
+            flight_landing: "🛬",
+            car_rental: "🚗",
+            hotel_checkin: "🏨",
+            hotel_checkout: "🧳",
+            baggage_storage: "🧳",
+            logistics: "📋",
+            park: "🎢",
+            leisure: "🏖️"
+        };
+
+        // Generate half-hour time slots
+        function generateTimeSlots() {
+            const slots = [];
+            for (let hour = 0; hour < 24; hour++) {
+                for (let min = 0; min < 60; min += 30) {
+                    const h = hour.toString().padStart(2, '0');
+                    const m = min.toString().padStart(2, '0');
+                    slots.push(`${h}:${m}`);
+                }
+            }
+            return slots;
+        }
+
+        // Format time for display (12-hour format)
+        function formatTime(time24) {
+            const [hours, minutes] = time24.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const hour12 = hour % 12 || 12;
+            return `${hour12}:${minutes} ${ampm}`;
+        }
+
+        // Get time slot for an event
+        function getTimeSlot(eventTime) {
+            const [hours, minutes] = eventTime.split(':');
+            const roundedMin = parseInt(minutes) < 30 ? '00' : '30';
+            return `${hours}:${roundedMin}`;
+        }
+
+        // Format date for display
+        function formatDate(dateStr) {
+            const date = new Date(dateStr + 'T12:00:00');
+            return date.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+
+        // Render navigation tabs
+        function renderNavTabs() {
+            const container = document.getElementById('nav-tabs');
+            
+            let html = '<button class="nav-tab active" data-day="all">📅 All Days</button>';
+            
+            TRIP_DATA.schedule.forEach((day, index) => {
+                const date = new Date(day.date + 'T12:00:00');
+                const shortDate = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                html += `<button class="nav-tab" data-day="${index}">${shortDate} - ${day.day}</button>`;
+            });
+            
+            container.innerHTML = html;
+            
+            // Add click handlers
+            container.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    container.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    showDay(e.target.dataset.day);
+                });
+            });
+        }
+
+        // Show specific day or all days
+        function showDay(dayIndex) {
+            const container = document.getElementById('calendar-container');
+            
+            if (dayIndex === 'all') {
+                renderAllDaysView();
+            } else {
+                renderDayCalendar(parseInt(dayIndex));
+            }
+        }
+
+        // Render all days overview
+        function renderAllDaysView() {
+            const container = document.getElementById('calendar-container');
+            let html = '<div class="all-days-view active">';
+            
+            TRIP_DATA.schedule.forEach((day, index) => {
+                html += `
+                    <div class="day-card">
+                        <h3>${formatDate(day.date)} - ${day.summary}</h3>
+                        <div class="event-list">
+                            ${day.events.map(event => `
+                                <div class="event-list-item">
+                                    <div class="event-list-time">${formatTime(event.time)}</div>
+                                    <div class="event-list-content">
+                                        <div class="event-list-title">${EVENT_ICONS[event.type] || '📌'} ${event.title}</div>
+                                        <div class="event-list-desc">${event.description}</div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        // Render day calendar with half-hour slots
+        function renderDayCalendar(dayIndex) {
+            const container = document.getElementById('calendar-container');
+            const day = TRIP_DATA.schedule[dayIndex];
+            const timeSlots = generateTimeSlots();
+            
+            // Create a map of events by time slot
+            const eventsBySlot = {};
+            day.events.forEach(event => {
+                const slot = getTimeSlot(event.time);
+                if (!eventsBySlot[slot]) {
+                    eventsBySlot[slot] = [];
+                }
+                eventsBySlot[slot].push(event);
+            });
+            
+            // Find the range of slots with events
+            let startSlotIndex = 0;
+            let endSlotIndex = timeSlots.length - 1;
+            
+            if (day.events.length > 0) {
+                const eventTimes = day.events.map(e => getTimeSlot(e.time));
+                const { minTime, maxTime } = eventTimes.reduce((acc, time) => ({
+                    minTime: time < acc.minTime ? time : acc.minTime,
+                    maxTime: time > acc.maxTime ? time : acc.maxTime
+                }), { minTime: eventTimes[0], maxTime: eventTimes[0] });
+                
+                // Start 2 hours before first event, end 2 hours after last
+                startSlotIndex = Math.max(0, timeSlots.indexOf(minTime) - 4);
+                endSlotIndex = Math.min(timeSlots.length - 1, timeSlots.indexOf(maxTime) + 4);
+            }
+            
+            let html = `
+                <div class="day-section active">
+                    <div class="day-header">
+                        <h2>${formatDate(day.date)}</h2>
+                        <span class="day-summary">${day.summary}</span>
+                    </div>
+                    <div class="calendar-grid">
+            `;
+            
+            for (let i = startSlotIndex; i <= endSlotIndex; i++) {
+                const slot = timeSlots[i];
+                const events = eventsBySlot[slot] || [];
+                
+                html += `
+                    <div class="time-slot">
+                        <div class="time-label-slot">${formatTime(slot)}</div>
+                        <div class="slot-content">
+                            ${events.map(event => `
+                                <div class="event-card ${event.type}">
+                                    <div class="event-title">
+                                        <span class="event-icon">${EVENT_ICONS[event.type] || '📌'}</span>
+                                        ${event.title}
+                                    </div>
+                                    <div class="event-description">${event.description}</div>
+                                    <div class="event-time">⏰ ${formatTime(event.time)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += `
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
         // Countdown functionality
         function updateCountdown() {
-            const targetDate = APP_DATA.COUNTDOWN_TARGET;
+            // Target: Dec 1, 2025 at 5:57 PM MST (Mountain Standard Time = UTC-7)
+            const targetDate = new Date('2025-12-01T17:57:00-07:00').getTime();
             const now = new Date().getTime();
             const difference = targetDate - now;
 
@@ -268,39 +796,14 @@
                 document.getElementById('minutes').innerText = minutes;
                 document.getElementById('seconds').innerText = seconds;
             } else {
-                document.getElementById('countdown-output').innerHTML = '<p style="font-size: 2em;">🎉 The magic has begun! 🎉</p>';
+                document.getElementById('countdown-output').innerHTML = '<p class="countdown-complete">🎉 The magic has begun! Have a wonderful trip! 🎉</p>';
             }
         }
 
-        // Render itinerary
-        function renderItinerary() {
-            const output = document.getElementById('itinerary-output');
-            
-            // Use the new ITINERARY data from APP_DATA
-            const itineraryItems = APP_DATA.ITINERARY;
-
-            output.innerHTML = itineraryItems.map(item => {
-                const actionHtml = item.action 
-                    ? `<p><strong>⚠️ Action Required:</strong> ${item.action}</p>` 
-                    : '';
-
-                return `
-                    <div class="itinerary-item">
-                        <p><strong>📌 Type:</strong> ${item.type}</p>
-                        <p><strong>📍 Name:</strong> ${item.name}</p>
-                        <p><strong>🕐 Start:</strong> ${item.start}</p>
-                        <p><strong>🕐 End:</strong> ${item.end}</p>
-                        <p><strong>📝 Details:</strong> ${item.details}</p>
-                        <p><strong>🏠 Address:</strong> ${item.address}</p>
-                        ${actionHtml}
-                    </div>
-                `;
-            }).join('');
-        }
-
         // Initialize
+        renderNavTabs();
+        renderAllDaysView();
         updateCountdown();
-        renderItinerary();
         setInterval(updateCountdown, 1000);
     </script>
 </body>
